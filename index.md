@@ -1,7 +1,8 @@
 ---
-title: Home
+title: Plan
 layout: home
 ---
+Group: David Yang, Oliver Petrick, Ryan Alameddine, and Nick Jiang
 
 ## Summary
 Taking inspiration from Minecraft world generation, this project will procedurally generate an infinite world with
@@ -53,10 +54,10 @@ There are a few key components of our project. First, we have our procedural gen
  - Seamless infinite generation, where we can just wander around and more terrain and cities will appear.
    
 ### Schedule
-- Week 1: Setup Unity infrastructure and complete terrain generation algorithm
-- Week 2: Complete Mesh generation and optimization, and basic city generation
-- Week 3: Advanced city generation, textures, begin working on aspirational goals
-- Week 4: Implement additional optimizations if needed and additional aspirational goals as time allows
+Week 1: Setup Unity infrastructure and complete terrain generation algorithm  
+Week 2: Complete Mesh generation and optimization, and basic city generation  
+Week 3: Advanced city generation, textures, begin working on aspirational goals  
+Week 4: Implement additional optimizations if needed and additional aspirational goals as time allows
       
 ## Resources
 - [Procedural generation of semantically plausible small-scale towns](https://www.sciencedirect.com/science/article/pii/S1524070323000012)
