@@ -1,3 +1,8 @@
+---
+title: Home
+layout: home
+---
+
 ## Summary
 Taking inspiration from Minecraft world generation, this project will procedurally generate an infinite world with
 complex terrains and cities. Additionally, there will be an interactive component to it where the user can move around 
