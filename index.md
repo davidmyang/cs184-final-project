@@ -18,6 +18,7 @@ We’re making procedural generation for cities in Unity, starting from terrain 
           cities come to life.
      
 ## Goals and Deliverables
+![City terrain](procgen.jpg)
 ### Demo
  In Unity, we can have a first person camera and WASD control to move through the terrain. This will allow us to see the world 
         being generated as we move in a direction. Latency should be unnoticable for moving slowly in the world.
