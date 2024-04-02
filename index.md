@@ -1,5 +1,5 @@
 ---
-title: Plan
+title: Proposal
 layout: home
 ---
 Group: David Yang, Oliver Petrick, Ryan Alameddine, and Nick Jiang
