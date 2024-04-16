@@ -18,10 +18,17 @@ the world using the WASD keys and space bar.
 ## Current Progress
 
 ### Procedural Terrain Generation
-TODO: Include Octave images
+
+Octave 1                   |  Octave 2
+:-------------------------:|:-------------------------:
+![Octave 1](images/octave1.jpg)  |  ![Octave 2](images/octave2.jpg)
+Octave 3                  |  Octave Sum
+:-------------------------:|:-------------------------:
+![Octave 3](images/octave3.jpg)  |  ![Octave Sum](images/octavesum.jpg)
+
 
 The core of our terrain generation is the Perlin Noise algorithm, which generates pseudo-random “smooth” noise. 
-You can see examples with different frequencies and amplitudes in the Octaves section. 
+You can see examples with different frequencies and amplitudes in the octave images above. 
 We use this to generate a height map by sampling from each octave and summing the result. We place grass on the top, dirt underneath, and stone far below. 
 
 ### Procedural Building Generation
@@ -45,13 +52,16 @@ This way, all shared data outside the channel input/output is immutable and the 
 
      
 ## Preliminary Results
-![City terrain](procgen.jpg)
-TODO: Include image
+![Milestone World](images/milestoneworld.png)
+*World terrain with randomized buildings*
 
 The preliminary results are definitely promising. We have terrain of different heights, player movement, basic building generation, and multithreading.
 The video is a better demonstration of our results.
    
 ### Updated Schedule
+![Voronoi Diagram](images/voronoidiagram.png)
+*Basic Voronoi diagram*
+
 We are doing good on progress relative to our original schedule. For the next two weeks, we will be working on advanced city generation and our aspirational goals.
 One implementation we will be looking into are Voronoi diagrams to create the main roads of our world. These diagrams also split the world into natural "neighborhoods" for us to place buildings.
 
