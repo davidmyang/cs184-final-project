@@ -10,10 +10,21 @@ complex terrains and cities. Additionally, there will be an interactive componen
 the world using the WASD keys and space bar.      
 
 ## Slides
+<style>
+.responsive-wrap iframe{ max-width: 100%;}
+</style>
+<div class="responsive-wrap">
+<!-- this is the embed code provided by Google -->
+ <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTMRT2ORdzsPRwqJX6j8WVo78PR9HfdKeu6xztUjLtWyNPYo2gjyYwP-WvsoFZvuRb3NImf2mL4iYIx/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+<!-- Google embed ends -->
+</div>
+
 [Milestone Slides](https://docs.google.com/presentation/d/1pH4gPwxhiTxhNro02AIRPbZl5zIW7kam_F1DCjj2xpc/edit#slide=id.p)
 
 ## Video
+<iframe width="560" height="315" src="https://www.youtube.com/embed/DerSaJTplfA?si=mbUJRmaSsk09kbiq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
+[Milestone Video](https://youtu.be/DerSaJTplfA)
      
 ## Current Progress
 
@@ -22,7 +33,7 @@ the world using the WASD keys and space bar.
 Octave 1                   |  Octave 2
 :-------------------------:|:-------------------------:
 ![Octave 1](images/octave1.jpg)  |  ![Octave 2](images/octave2.jpg)
-Octave 3                  |  Octave Sum
+**Octave 3**                  |  **Octave Sum**
 ![Octave 3](images/octave3.jpg)  |  ![Octave Sum](images/octavesum.jpg)
 
 
