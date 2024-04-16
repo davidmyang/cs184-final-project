@@ -23,7 +23,6 @@ Octave 1                   |  Octave 2
 :-------------------------:|:-------------------------:
 ![Octave 1](images/octave1.jpg)  |  ![Octave 2](images/octave2.jpg)
 Octave 3                  |  Octave Sum
-:-------------------------:|:-------------------------:
 ![Octave 3](images/octave3.jpg)  |  ![Octave Sum](images/octavesum.jpg)
 
 
@@ -32,16 +31,15 @@ You can see examples with different frequencies and amplitudes in the octave ima
 We use this to generate a height map by sampling from each octave and summing the result. We place grass on the top, dirt underneath, and stone far below. 
 
 ### Procedural Building Generation
-To place the houses within each Chunk, we first sample a width and depth and iterate through each block of the xz plane in the chunk. For each block, we check that the projected space for house’s foundation (add width along the x-axis, depth along the z-axis) is the same height; we don’t want to place a home on an uneven surface. If we find a suitable placement, we add a small buffer so that the homes are not directly next to one another and repeat the height checking.
+To place the houses within each Chunk, we first sample a random width and depth and iterate through each block of the xz plane in the chunk. For each block, we check that the projected space for house’s foundation (add width along the x-axis, depth along the z-axis) is the same height; we don’t want to place a home on an uneven surface. If we find a suitable placement, we add a small buffer so that the homes are not directly next to one another and repeat the height checking.
 
-TODO: Add stuff about building materializer here
+Next, the house object is materialized with the rest of the Chunk blocks. The texture of the house is determined by its height which is also randomly generated. If the height is less than or equal to a certain constant, it's considered a small house and given a random color for walls and an overhangging roof. If the height is greater, it's considered a tall building and given brick texture.
 
 ### Block Textures
 While creating meshes for each chunk, we assign UV coordinates to each face in accordance with the block type. In particular, we actually have a 3D UVW space, where W selects which block texture to use. We wrote a simple shader which uses this W coordinate to select the texture to sample from a texture array, and then forwards the UV sampled color from the selected texture to a standard Unity Shader.
 
 ### Player Movement
-Includes collisions with the world and the player.
-Player can jump around with gravity but can also switch between a flying mode by double tapping jump.
+There is a player in the world which is controlled by the WASD keys. It can jump around with gravity but can also switch to a flying mode by double tapping jump (space bar). The player interacts with all the blocks in the world through collisions.
 
 ### Multithreading
 Even with our mesh generation optimizations (only showing faces which are not covered by another block), this was still too slow to generate many chunks at 60fps. Thus, we offloaded generation work onto other threads.
@@ -59,14 +57,14 @@ The preliminary results are definitely promising. We have terrain of different h
 The video is a better demonstration of our results.
    
 ### Updated Schedule
-![Voronoi Diagram](images/voronoidiagram.png)
+![Voronoi Diagram](images/voronoidiagram.png) </br>
 *Basic Voronoi diagram*
 
 We are doing good on progress relative to our original schedule. For the next two weeks, we will be working on advanced city generation and our aspirational goals.
 One implementation we will be looking into are Voronoi diagrams to create the main roads of our world. These diagrams also split the world into natural "neighborhoods" for us to place buildings.
 
-Week 3: Advanced city generation (Voronoi diagram roads), more buildings, begin working on aspirational goals
-Week 4: Implement additional optimizations if needed and additional aspirational goals as time allows
+- Week 3: Advanced city generation (Voronoi diagram roads), more buildings, begin working on aspirational goals
+- Week 4: Implement additional optimizations if needed and additional aspirational goals as time allows
 
 
 [Just the Docs]: https://just-the-docs.github.io/just-the-docs/
