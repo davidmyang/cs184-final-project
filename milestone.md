@@ -22,7 +22,7 @@ the world using the WASD keys and space bar.
 [Milestone Slides](https://docs.google.com/presentation/d/1pH4gPwxhiTxhNro02AIRPbZl5zIW7kam_F1DCjj2xpc/edit#slide=id.p)
 
 ## Video
-<iframe width="560" height="315" src="https://www.youtube.com/embed/DerSaJTplfA?si=mbUJRmaSsk09kbiq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="960" height="540" src="https://www.youtube.com/embed/DerSaJTplfA?si=mbUJRmaSsk09kbiq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 [Milestone Video](https://youtu.be/DerSaJTplfA)
      
@@ -67,7 +67,7 @@ This way, all shared data outside the channel input/output is immutable and the 
 The preliminary results are definitely promising. We have terrain of different heights, player movement, basic building generation, and multithreading.
 The video is a better demonstration of our results.
    
-### Updated Schedule
+## Updated Schedule
 ![Voronoi Diagram](images/voronoidiagram.png) </br>
 *Basic Voronoi diagram*
 
