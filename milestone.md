@@ -10,7 +10,7 @@ complex terrains and cities. Additionally, there will be an interactive componen
 the world using the WASD keys and space bar.      
 
 ## Slides
-[Milestone Slides]: https://docs.google.com/presentation/d/1pH4gPwxhiTxhNro02AIRPbZl5zIW7kam_F1DCjj2xpc/edit#slide=id.p
+[Milestone Slides](https://docs.google.com/presentation/d/1pH4gPwxhiTxhNro02AIRPbZl5zIW7kam_F1DCjj2xpc/edit#slide=id.p)
 
 ## Video
 
@@ -53,10 +53,10 @@ The video is a better demonstration of our results.
    
 ### Updated Schedule
 We are doing good on progress relative to our original schedule. For the next two weeks, we will be working on advanced city generation and our aspirational goals.
+One implementation we will be looking into are Voronoi diagrams to create the main roads of our world. These diagrams also split the world into natural "neighborhoods" for us to place buildings.
 
 Week 3: Advanced city generation (Voronoi diagram roads), more buildings, begin working on aspirational goals
 Week 4: Implement additional optimizations if needed and additional aspirational goals as time allows
-----
 
 
 [Just the Docs]: https://just-the-docs.github.io/just-the-docs/
