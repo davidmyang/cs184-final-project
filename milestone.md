@@ -22,7 +22,7 @@ the world using the WASD keys and space bar.
 [Milestone Slides](https://docs.google.com/presentation/d/1pH4gPwxhiTxhNro02AIRPbZl5zIW7kam_F1DCjj2xpc/edit#slide=id.p)
 
 ## Video
-<iframe width="960" height="540" src="https://www.youtube.com/embed/DerSaJTplfA?si=mbUJRmaSsk09kbiq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="784" height="441" src="https://www.youtube.com/embed/DerSaJTplfA?si=mbUJRmaSsk09kbiq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 [Milestone Video](https://youtu.be/DerSaJTplfA)
      
@@ -68,7 +68,7 @@ The preliminary results are definitely promising. We have terrain of different h
 The video is a better demonstration of our results.
    
 ## Updated Schedule
-![Voronoi Diagram](images/voronoidiagram.png) </br>
+![Voronoi Diagram](images/voronoidiagram.png)  
 *Basic Voronoi diagram*
 
 We are doing good on progress relative to our original schedule. For the next two weeks, we will be working on advanced city generation and our aspirational goals.
