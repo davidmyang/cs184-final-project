@@ -30,7 +30,7 @@ The infinite world is organized into an implicit grid structure at various granu
 Blocks are the abstract units of our gridded generation space. Chunks are collections of blocks which are represented as a single triangle mesh and drawn to the screen. Megachunks are 
 abstract groups of chunks which correspond to a single block of a city.
 
-<img src="/images/chunkstructure.png" align="left" width="200px" height="auto"/>
+<img src="/images/chunkstructure.png" align="left" width="300px" height="300px"/>
 *The infinite world is organized into an implicit grid structure at various granularities, as shown above. Not shown is the y axis, in which a single chunk contains 16x16x128 blocks. Blocks are the abstract units of our gridded generation space. Chunks are collections of blocks which are represented as a single triangle mesh and drawn to the screen. Megachunks are abstract groups of chunks which correspond to a single block of a city.*
 
 ### An Infinite World
@@ -43,14 +43,15 @@ As the player moves around, different chunks come in and out of range. New chunk
 Our generation algorithm is built as a pipeline, with a variety of ordered steps described in the sections below. At a high level:
 We sample a circular radius around the player in chunk space and megachunk space. For each uninitialized megachunk, we queue it for planning (1). We instantiate new chunks whose containing megachunk is planned, and queue them for materialization (2). We then queue each materialized chunk for meshing (3). The final meshed output is then displayed to the screen (4).
 
-#### \1: Megachunk Planning
+#### Step 1: Megachunk Planning
 
-We wanted our cities to be walkable and have a natural look to them. Thus, we chose to model them after Voronoi diagrams, which can be used to model radial growth from a set of starting points.
-Here, each black dot is a starting point and the cells grow until they contact neighboring cells. Edges and vertices naturally form from this expansion. We then have each cell be a “neighborhood” and each edge is a road/sidewalk. We decided to use the Jump Flooding Algorithm O(n<sup>2</sup> * log(n)) which is a cool approximation algorithm for Voronoi diagrams and allows us to nicely check if a Block lies on an edge. 
+We wanted our cities to be walkable and have a natural look to them. Thus, we chose to implement Voronoi diagrams, which can be used to model radial growth from a set of starting points.
+Here, each black dot is a starting point and the cells grow until they contact neighboring cells. Edges and vertices naturally form from this expansion. We then have each cell be a “neighborhood” and each edge is a road/trail. We decided to use the Jump Flooding Algorithm (O(n<sup>2</sup> * log(n)) runtime) which is a cool approximation algorithm for Voronoi diagrams and allows us to nicely check if a Block lies on an edge. 
 
-[images]
+![Jump Flooding Algorithm](images/JFA.png)
+*Steps of Jump Flooding Algorithm (JFA) (source: JFA paper)*
 
-#### \2: Chunk Materialization</h4>
+#### Step 2: Chunk Materialization
 This pipeline step populates a Chunk’s 3D array of blocks using information from the height map, biome map, and megachunk plan.
 
 ##### 2a: Terrain Materialization
@@ -72,11 +73,14 @@ To materialize these maps into our 3D block array, we sample from both maps at e
 ##### 2b: Road Materialization
 Since the road generating algorithm is implemented in Megachunk planning, here we just need to materialize the roads within each Chunk. We simply loop through the set of road coordinates and check if each coordinate is within the coordinates of our current chunk. If it is, we add it to our 3D block array for it to be materialized.
 
+![trails](image/trails.png)
+*Road/Trail materializatoin using JFA*
+
 ##### 2c: House Materialization
 We implement a placement algorithm for homes that ensures that they are placed on even terrain and have a buffer away from roads. Thus, hilly and road-heavy areas should have a sparse distribution of homes. For each chunk, we sample a width, height, and depth. Then, we iterate through the grid of blocks and check whether the proposed placement has uneven terrain and if there exist any roadblocks within buffer blocks away in any direction. If both conditions are satisfied, we will push the new house to our array and add a small buffer to search for the next home (to prevent homes from being stacked next to each other). This algorithm maximizes the number of homes within a megachunk while maintaining separation from roads, creating privacy-centric neighborhoods.
 We materialize the houses by taking in their location of them from the placement algorithm. Knowing the location, length, width, and height, the houses are materialized by placing the appropriate blocks in the 3D block array. Additionally, if the home’s height is above a certain threshold, a different style of house is generated. The structure of these houses is adjusted depending on their dimensions to fit a consistent architecture. Depending on the biome the home home is in, the blocks that make up the homes are different. 
 
-#### \3: Chunk Meshing
+#### Step 3: Chunk Meshing
 In this pipeline step, an optimized triangle mesh is created from a Chunk’s 3D block array. Each block in a chunk has six potential faces. For each potential face, we check if the adjacent block is transparent (air, glass, etc). If so, we add the four vertices and two triangles needed. Instead of standard UV coordinates, we supply the shader UV-W coordinates, where W is the index in our texture array of the corresponding block face. 
 The core of our terrain generation is the Perlin Noise algorithm, which generates pseudo-random “smooth” noise. 
 You can see examples with different frequencies and amplitudes in the octave images above. 
@@ -88,7 +92,7 @@ Wireframe                   |  Mesh                 |  Final Mesh
 
 *Note how unnecessary vertices and triangles (below the surface, or inside the house roof, for example) are not included in the mesh.*
 
-#### \4. Rendering
+#### Part 4: Rendering
 At this point, most of the rendering work is done by Unity. However, we wrote a simple shader for the chunk meshes which uses a uvw coordinate input to sample from a specific texture from our block texture array before passing back into Unity.  
 
 ### Problems Encountered
@@ -111,9 +115,9 @@ At this point, most of the rendering work is done by Unity. However, we wrote a 
 
 <iframe src="https://giphy.com/embed/Vig9qkktCbxWH2BnZb" width="480" height="248" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/Vig9qkktCbxWH2BnZb">Procedural Generation GIF</a></p>
 
-Final Image 1              |  Final Image 2
-:-------------------------:|:-------------------------:
-![birdseye1](images/birdseye1.png)  |  ![birdseye2](images/birdseye2.png)
+Final Image 1              |  Final Image 2            |  Final Image 3
+:-------------------------:|:-------------------------:|:-------------------------:
+![birdseye1](images/birdseye1.png)  |  ![birdseye2](images/birdseye2.png)  |  ![finalworld](images/finalworld.png)
 
 
 ## References
