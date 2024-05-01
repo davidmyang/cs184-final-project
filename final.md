@@ -22,7 +22,7 @@ The infinite world is organized into an implicit grid structure at various granu
 Blocks are the abstract units of our gridded generation space. Chunks are collections of blocks which are represented as a single triangle mesh and drawn to the screen. Megachunks are 
 abstract groups of chunks which correspond to a single block of a city.
 
-<img src="images/chunkstructure.png" align="left" width="300px" height="300px"/>
+<img src="images/chunkstructure.png" align="left" width="300px" height="300px" style="margin-right: 10px;"/>
 *The infinite world is organized into an implicit grid structure at various granularities, as shown above. Not shown is the y axis, in which a single chunk contains 16x16x128 blocks. Blocks are the abstract units of our gridded generation space. Chunks are collections of blocks which are represented as a single triangle mesh and drawn to the screen. Megachunks are abstract groups of chunks which correspond to a single block of a city.*
 
 ### An Infinite World
@@ -61,14 +61,14 @@ Next, we generate a biome map using another stack of Perlin octaves. This time, 
 
 To materialize these maps into our 3D block array, we sample from both maps at each (x,z) coordinate. At that height, we place grass/snow/sand (depending on the biome sample). We place dirt underneath, and then stone deep below.
 
-<img src="images/biomes.png" align="right"/>
+<img src="images/biomes.png" align="right" width="683px" height="378px" style="margin-left: 10px;"/>
 
 *Snow, grass, and sand biomes*
 
 ##### 2b: Road Materialization
 Since the road generating algorithm is implemented in Megachunk planning, here we just need to materialize the roads within each Chunk. We simply loop through the set of road coordinates and check if each coordinate is within the coordinates of our current chunk. If it is, we add it to our 3D block array for it to be materialized.
 
-<img src="images/trails.png" align="left"/>
+<img src="images/trails.png" align="left" width="643px" height="349px" style="margin-right: 10px;"/>
 
 *Road/Trail materializatoin using JFA*
 
@@ -109,7 +109,7 @@ At this point, most of the rendering work is done by Unity. However, we wrote a 
 
 ## Results
 
-<iframe src="https://giphy.com/embed/Vig9qkktCbxWH2BnZb" width="480" height="248" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/Vig9qkktCbxWH2BnZb"></a></p>
+<iframe src="https://giphy.com/embed/Vig9qkktCbxWH2BnZb" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/Vig9qkktCbxWH2BnZb"></a></p>
 
 ![finalworld](images/finalworld.png)
 *Final World Generation*
