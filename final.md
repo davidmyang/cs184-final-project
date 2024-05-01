@@ -37,7 +37,7 @@ We sample a circular radius around the player in chunk space and megachunk space
 #### 1. Megachunk Planning
 
 We wanted our cities to be walkable and have a natural look to them. Thus, we chose to model them after Voronoi diagrams, which can be used to model radial growth from a set of starting points.
-Here, each black dot is a starting point and the cells grow until they contact neighboring cells. Edges and vertices naturally form from this expansion. We then have each cell be a “neighborhood” and each edge is a road/sidewalk. We decided to use the Jump Flooding Algorithm O(n^2 * log_2(n)) which is a cool approximation algorithm for Voronoi diagrams and allows us to nicely check if a Block lies on an edge. 
+Here, each black dot is a starting point and the cells grow until they contact neighboring cells. Edges and vertices naturally form from this expansion. We then have each cell be a “neighborhood” and each edge is a road/sidewalk. We decided to use the Jump Flooding Algorithm O(n<sup>2</sup> * log(n)) which is a cool approximation algorithm for Voronoi diagrams and allows us to nicely check if a Block lies on an edge. 
 
 [images]
 
@@ -77,13 +77,13 @@ At this point, most of the rendering work is done by Unity. However, we wrote a 
 ### Problems Encountered
 
 1. Performance Issues and Optimizations
-   - Meshing: the naive solution (generate a cube mesh for each block) failed to run at 60fps with even a single chunk (16x16x128=32,768 possible blocks). Our optimized solution (fewer vertices, fewer triangles, fewer gpu objects, and fewer unit objects) can run at 60fps with hundreds of chunks.
-   - Pipeline efficiency & synchronization: As you might have noticed, our generation logic requires a significant amount of work for our cpu. In just a single megachunk (8x8 chunk block), there are 2,097,152 blocks to generate! And yet, we are able to smoothly generate the world as the player moves and explores using some careful multithreading. Basically, each pipeline step 1-3 is partitioned across different threads. All of this is synchronized using an AsyncQueue abstraction we created, which takes ownership of its input and asynchronously spits out processed outputs. No mutable data is shared between threads and the main thread is never blocked, so don’t have to worry about deadlock or other synchronization issues.
+   a. Meshing: the naive solution (generate a cube mesh for each block) failed to run at 60fps with even a single chunk (16x16x128=32,768 possible blocks). Our optimized solution (fewer vertices, fewer triangles, fewer gpu objects, and fewer unit objects) can run at 60fps with hundreds of chunks.
+   b. Pipeline efficiency & synchronization: As you might have noticed, our generation logic requires a significant amount of work for our cpu. In just a single megachunk (8x8 chunk block), there are 2,097,152 blocks to generate! And yet, we are able to smoothly generate the world as the player moves and explores using some careful multithreading. Basically, each pipeline step 1-3 is partitioned across different threads. All of this is synchronized using an AsyncQueue abstraction we created, which takes ownership of its input and asynchronously spits out processed outputs. No mutable data is shared between threads and the main thread is never blocked, so don’t have to worry about deadlock or other synchronization issues.
 2. Voronoi Diagrams
-   - Simple implementations of Voronoi diagrams take O(n^2) time; however, we ran into a challenge of easily converting from the outputted edge endpoints to a set of Blocks that intersect the edge. This is why we decided to use the JFA, a much easier way of implementing approximate Voronoi diagrams. 
-   - How to adapt the Voronoi generation to an infinite context - we created a “megachunk” abstraction where we produce a voronoi diagram per megachunk and add a further step to connect the trails together
+   a. Simple implementations of Voronoi diagrams take O(n<sup>2</sup>) time; however, we ran into a challenge of easily converting from the outputted edge endpoints to a set of Blocks that intersect the edge. This is why we decided to use the JFA, a much easier way of implementing approximate Voronoi diagrams. 
+   b. How to adapt the Voronoi generation to an infinite context - we created a “megachunk” abstraction where we produce a voronoi diagram per megachunk and add a further step to connect the trails together
 3. Home/Building Placement
-   - We wanted neighborhoods to feel tight-knit but also private. As a result, we added a buffer between walking trails and homes.
+   a. We wanted neighborhoods to feel tight-knit but also private. As a result, we added a buffer between walking trails and homes.
   
 ### Lessons Learned
 - Early infrastructure (code organization, optimizations) is crucial for building later features
@@ -92,10 +92,12 @@ At this point, most of the rendering work is done by Unity. However, we wrote a 
 
 ## Results
 
+<iframe src="https://giphy.com/embed/Vig9qkktCbxWH2BnZb" width="480" height="248" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/Vig9qkktCbxWH2BnZb">via GIPHY</a></p>
+
 ## References
 
-1. Jump Flooding Algorithm Paper
-2. Procedurally Generating Terrain Paper
+1. [Procedurally Generating Terrain Paper](https://micsymposium.org/mics_2011_proceedings/mics2011_submission_30.pdf)
+2. [Jump Flooding Algorithm Paper](https://www.comp.nus.edu.sg/~tants/jfa/i3d06.pdf)
 
 ## Contributions
 - Nick: House placement algorithm (factoring raods and terrain) and optimizations, house materialization
