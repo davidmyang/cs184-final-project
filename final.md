@@ -10,9 +10,9 @@ The goal is to help urban planners easily visualize new city designs with change
 can move around the world using the WASD keys and space bar.
 
 ## Video
-<iframe width="784" height="441" src="https://www.youtube.com/embed/DerSaJTplfA?si=mbUJRmaSsk09kbiq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="784" height="441" src="https://www.youtube.com/embed/jlnPWuDzNF4?si=d4gOgNJZGDqsOR_r" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-[Milestone Video](https://youtu.be/DerSaJTplfA)
+[Final Video](https://youtu.be/jlnPWuDzNF4)
      
 ## Technical Approach
 
@@ -35,7 +35,7 @@ As the player moves around, different chunks come in and out of range. New chunk
 Our generation algorithm is built as a pipeline, with a variety of ordered steps described in the sections below. At a high level:
 We sample a circular radius around the player in chunk space and megachunk space. For each uninitialized megachunk, we queue it for planning (1). We instantiate new chunks whose containing megachunk is planned, and queue them for materialization (2). We then queue each materialized chunk for meshing (3). The final meshed output is then displayed to the screen (4).
 
-#### Step 1 - Megachunk Planning
+### Step 1 - Megachunk Planning
 
 We wanted our cities to be walkable and have a natural look to them. Thus, we chose to implement Voronoi diagrams, which can be used to model radial growth from a set of starting points.
 Here, each black dot is a starting point and the cells grow until they contact neighboring cells. Edges and vertices naturally form from this expansion. We then have each cell be a “neighborhood” and each edge is a road/trail. We decided to use the Jump Flooding Algorithm (O(n<sup>2</sup> * log(n)) runtime) which is a cool approximation algorithm for Voronoi diagrams and allows us to nicely check if a Block lies on an edge. 
@@ -61,14 +61,14 @@ Next, we generate a biome map using another stack of Perlin octaves. This time, 
 
 To materialize these maps into our 3D block array, we sample from both maps at each (x,z) coordinate. At that height, we place grass/snow/sand (depending on the biome sample). We place dirt underneath, and then stone deep below.
 
-<img src="images/biomes.png" align="right" width="683px" height="378px" style="margin-left: 10px;"/>
+<img src="images/biomes.png" align="right" width="341px" height="189px" style="margin-left: 10px;"/>
 
 *Snow, grass, and sand biomes*
 
 ##### 2b: Road Materialization
 Since the road generating algorithm is implemented in Megachunk planning, here we just need to materialize the roads within each Chunk. We simply loop through the set of road coordinates and check if each coordinate is within the coordinates of our current chunk. If it is, we add it to our 3D block array for it to be materialized.
 
-<img src="images/trails.png" align="left" width="643px" height="349px" style="margin-right: 10px;"/>
+<img src="images/trails.png" align="left" width="321px" height="174px" style="margin-right: 10px;"/>
 
 *Road/Trail materializatoin using JFA*
 
@@ -109,7 +109,7 @@ At this point, most of the rendering work is done by Unity. However, we wrote a 
 
 ## Results
 
-<iframe src="https://giphy.com/embed/Vig9qkktCbxWH2BnZb" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/Vig9qkktCbxWH2BnZb"></a></p>
+<iframe src="https://giphy.com/embed/Vig9qkktCbxWH2BnZb" width="960" height="372" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/Vig9qkktCbxWH2BnZb"></a></p>
 
 ![finalworld](images/finalworld.png)
 *Final World Generation*
