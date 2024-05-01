@@ -3,14 +3,6 @@ title: Final
 layout: default
 ---
 Group: David Yang, Oliver Petrick, Ryan Alameddine, and Nick Jiang
-<style type="text/css">
-     .image-left {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      float: right;
-     }
-</style>
     
 ## Abstract
 Taking inspiration from Minecraft world generation, this project procedurally generates an infinite world with complex terrains, biomes, and natural, walkable cities. 
@@ -49,6 +41,7 @@ We wanted our cities to be walkable and have a natural look to them. Thus, we ch
 Here, each black dot is a starting point and the cells grow until they contact neighboring cells. Edges and vertices naturally form from this expansion. We then have each cell be a “neighborhood” and each edge is a road/trail. We decided to use the Jump Flooding Algorithm (O(n<sup>2</sup> * log(n)) runtime) which is a cool approximation algorithm for Voronoi diagrams and allows us to nicely check if a Block lies on an edge. 
 
 ![Jump Flooding Algorithm](images/JFA.png)
+
 *Steps of Jump Flooding Algorithm (JFA) (source: JFA paper)*
 
 #### Step 2: Chunk Materialization
@@ -68,12 +61,15 @@ Next, we generate a biome map using another stack of Perlin octaves. This time, 
 
 To materialize these maps into our 3D block array, we sample from both maps at each (x,z) coordinate. At that height, we place grass/snow/sand (depending on the biome sample). We place dirt underneath, and then stone deep below.
 
-![Grass, snow, and sand biomes](images/biomes.png){: .image-left }
+<img src="/images/biomes.png" align="left"/>
+
+*Snow, grass, and sand biomes*
 
 ##### 2b: Road Materialization
 Since the road generating algorithm is implemented in Megachunk planning, here we just need to materialize the roads within each Chunk. We simply loop through the set of road coordinates and check if each coordinate is within the coordinates of our current chunk. If it is, we add it to our 3D block array for it to be materialized.
 
-![trails](image/trails.png)
+![trails](images/trails.png)
+
 *Road/Trail materializatoin using JFA*
 
 ##### 2c: House Materialization
@@ -126,7 +122,7 @@ Final Image 1              |  Final Image 2            |  Final Image 3
 2. [Jump Flooding Algorithm Paper](https://www.comp.nus.edu.sg/~tants/jfa/i3d06.pdf)
 
 ## Contributions
-- Nick: House placement algorithm (factoring raods and terrain) and optimizations, house materialization
+- Nick: House placement algorithm (factoring roads and terrain) and optimizations, house materialization
 - Oliver: Player interactivity, houes materialization, biome materialization, and texturing
 - David: Basic house materialization, Voronoi diagram using Jump Flooding Algorithm (for road generation), road materialization, webpages
 - Ryan: Core pipeline, block mesh generation and optimization, terrain/biome generation algorithm, multithreading primitives
