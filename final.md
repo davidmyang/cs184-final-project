@@ -46,7 +46,7 @@ We sample a circular radius around the player in chunk space and megachunk space
 ### 1. Megachunk Planning
 
 We wanted our cities to be walkable and have a natural look to them. Thus, we chose to implement Voronoi diagrams, which can be used to model radial growth from a set of starting points.
-Here, each black dot is a starting point and the cells grow until they contact neighboring cells. Edges and vertices naturally form from this expansion. We then have each cell be a “neighborhood” and each edge is a road/trail. We decided to use the Jump Flooding Algorithm (O(n<sup>2</sup> * log(n)) runtime) which is a cool approximation algorithm for Voronoi diagrams and allows us to nicely check if a Block lies on an edge. 
+Here, each black dot is a starting point and the cells grow until they contact neighboring cells. Edges and vertices naturally form from this expansion. We then have each cell be a “neighborhood” and each edge is a road/trail. We decided to use the Jump Flooding Algorithm (O(n<sup>2</sup>log(n)) runtime) which is a cool approximation algorithm for Voronoi diagrams and allows us to nicely check if a Block lies on an edge. 
 
 ![Jump Flooding Algorithm](images/JFA.png)
 
@@ -67,7 +67,7 @@ The core of our terrain generation is the Perlin Noise algorithm (not implemente
 
 Next, we generate a biome map using another stack of Perlin octaves. This time, instead of using the resulting sample as a height value, we mark low values as desert, medium as plains, and high as taiga. This ensures smooth biome distribution, and that deserts and taigas don’t fall directly adjacent to each other.
 
-To materialize these maps into our 3D block array, we sample from both maps at each (x,z) coordinate. At that height, we place grass/snow/sand (depending on the biome sample). We place dirt underneath, and then stone deep below.
+To materialize these maps into our 3D block array, we sample from both maps at each (x, z) coordinate. At that height, we place grass/snow/sand (depending on the biome sample). We place dirt underneath, and then stone deep below.
 
 ![Biomes](images/biomes.png)
 
