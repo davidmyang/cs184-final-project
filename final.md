@@ -3,6 +3,14 @@ title: Final
 layout: default
 ---
 Group: David Yang, Oliver Petrick, Ryan Alameddine, and Nick Jiang
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
     
 ## Abstract
 Taking inspiration from Minecraft world generation, this project procedurally generates an infinite world with complex terrains, biomes, and natural, walkable cities. 
@@ -35,7 +43,7 @@ As the player moves around, different chunks come in and out of range. New chunk
 Our generation algorithm is built as a pipeline, with a variety of ordered steps described in the sections below. At a high level:
 We sample a circular radius around the player in chunk space and megachunk space. For each uninitialized megachunk, we queue it for planning (1). We instantiate new chunks whose containing megachunk is planned, and queue them for materialization (2). We then queue each materialized chunk for meshing (3). The final meshed output is then displayed to the screen (4).
 
-### Step 1 - Megachunk Planning
+### 1. Megachunk Planning
 
 We wanted our cities to be walkable and have a natural look to them. Thus, we chose to implement Voronoi diagrams, which can be used to model radial growth from a set of starting points.
 Here, each black dot is a starting point and the cells grow until they contact neighboring cells. Edges and vertices naturally form from this expansion. We then have each cell be a “neighborhood” and each edge is a road/trail. We decided to use the Jump Flooding Algorithm (O(n<sup>2</sup> * log(n)) runtime) which is a cool approximation algorithm for Voronoi diagrams and allows us to nicely check if a Block lies on an edge. 
@@ -44,7 +52,7 @@ Here, each black dot is a starting point and the cells grow until they contact n
 
 *Steps of Jump Flooding Algorithm (JFA) (source: JFA paper)*
 
-#### Step 2: Chunk Materialization
+#### 2. Chunk Materialization
 This pipeline step populates a Chunk’s 3D array of blocks using information from the height map, biome map, and megachunk plan.
 
 ##### 2a: Terrain Materialization
@@ -61,22 +69,21 @@ Next, we generate a biome map using another stack of Perlin octaves. This time, 
 
 To materialize these maps into our 3D block array, we sample from both maps at each (x,z) coordinate. At that height, we place grass/snow/sand (depending on the biome sample). We place dirt underneath, and then stone deep below.
 
-<img src="images/biomes.png" align="right" width="341px" height="189px" style="margin-left: 10px;"/>
+![Biomes](images/biomes.png)
 
 *Snow, grass, and sand biomes*
 
 ##### 2b: Road Materialization
 Since the road generating algorithm is implemented in Megachunk planning, here we just need to materialize the roads within each Chunk. We simply loop through the set of road coordinates and check if each coordinate is within the coordinates of our current chunk. If it is, we add it to our 3D block array for it to be materialized.
 
-<img src="images/trails.png" align="left" width="321px" height="174px" style="margin-right: 10px;"/>
-
-*Road/Trail materializatoin using JFA*
+![trails](images/trails.png)
+*Road/Trail materialization using JFA*
 
 ##### 2c: House Materialization
 We implement a placement algorithm for homes that ensures that they are placed on even terrain and have a buffer away from roads. Thus, hilly and road-heavy areas should have a sparse distribution of homes. For each chunk, we sample a width, height, and depth. Then, we iterate through the grid of blocks and check whether the proposed placement has uneven terrain and if there exist any roadblocks within buffer blocks away in any direction. If both conditions are satisfied, we will push the new house to our array and add a small buffer to search for the next home (to prevent homes from being stacked next to each other). This algorithm maximizes the number of homes within a megachunk while maintaining separation from roads, creating privacy-centric neighborhoods.
 We materialize the houses by taking in their location of them from the placement algorithm. Knowing the location, length, width, and height, the houses are materialized by placing the appropriate blocks in the 3D block array. Additionally, if the home’s height is above a certain threshold, a different style of house is generated. The structure of these houses is adjusted depending on their dimensions to fit a consistent architecture. Depending on the biome the home home is in, the blocks that make up the homes are different. 
 
-#### Step 3: Chunk Meshing
+### 3. Chunk Meshing
 In this pipeline step, an optimized triangle mesh is created from a Chunk’s 3D block array. Each block in a chunk has six potential faces. For each potential face, we check if the adjacent block is transparent (air, glass, etc). If so, we add the four vertices and two triangles needed. Instead of standard UV coordinates, we supply the shader UV-W coordinates, where W is the index in our texture array of the corresponding block face. 
 The core of our terrain generation is the Perlin Noise algorithm, which generates pseudo-random “smooth” noise. 
 You can see examples with different frequencies and amplitudes in the octave images above. 
@@ -88,7 +95,7 @@ Wireframe                   |  Mesh                 |  Final Mesh
 
 *Note how unnecessary vertices and triangles (below the surface, or inside the house roof, for example) are not included in the mesh.*
 
-#### Part 4: Rendering
+### 4. Rendering
 At this point, most of the rendering work is done by Unity. However, we wrote a simple shader for the chunk meshes which uses a uvw coordinate input to sample from a specific texture from our block texture array before passing back into Unity.  
 
 ### Problems Encountered
