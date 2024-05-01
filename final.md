@@ -116,7 +116,7 @@ At this point, most of the rendering work is done by Unity. However, we wrote a 
 
 ## Results
 
-<iframe src="https://giphy.com/embed/Vig9qkktCbxWH2BnZb" width="960" height="372" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/Vig9qkktCbxWH2BnZb"></a></p>
+<iframe src="https://giphy.com/embed/Vig9qkktCbxWH2BnZb" width="480" height="248" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/Vig9qkktCbxWH2BnZb"></a></p>
 
 ![finalworld](images/finalworld.png)
 *Final World Generation*
